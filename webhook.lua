@@ -19,7 +19,6 @@ local function sendWebhook(meters, displayName, multiplier, timerStr)
                 { name = "Multiplier", value = tostring(multiplier), inline = true },
                 { name = "Timer",      value = timerStr,             inline = true },
                 { name = "Meters",     value = tostring(meters),     inline = true },
-                --{ name = "Join Link", value = "https://www.roblox.com/games/"..game.PlaceId.."?gameJobId="..game.JobId, inline = false },
             },
             timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
         }}
@@ -75,25 +74,28 @@ local function processRift(v)
         multNum = 9999999999
     end
 
-    local threshold = (rawName == "event-1" or rawName == "void-egg") and 5 or 10
+    -- 设置特殊蛋种的触发门槛
+    local threshold = (rawName == "event-1" or rawName == "event-3" or rawName == "void-egg") and 5 or 10
 
     local pos    = v:GetPivot().Position
     local meters = math.floor(pos.Y)
 
     if rawName ~= "gift-rift"
-    and ( rawName == "event-1"
-        or rawName == "event-2"
-        or rawName == "void-egg"
-        or rawName == "rainbow-egg"
-        or rawName == "aura-egg"
-        or rawName == "royal-chest"
-        or rawName == "golden-chest" )
+    and (
+        rawName == "event-1"
+     or rawName == "event-2"
+     or rawName == "event-3"
+     or rawName == "void-egg"
+     or rawName == "rainbow-egg"
+     or rawName == "aura-egg"
+     or rawName == "royal-chest"
+     or rawName == "golden-chest"
+    )
     and multNum >= threshold then
 
         sendWebhook(meters, displayName, multNum, timerValue)
     end
 end
-
 
 for _, v in ipairs(rifts:GetChildren()) do
     task.spawn(processRift, v)
