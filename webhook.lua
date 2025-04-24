@@ -8,26 +8,27 @@ local function sendWebhook(meters, displayName, multiplier, timerStr)
 
     local payload = {
         content = "@everyone",
-        embeds = {{
-            title       = "A Rift has spawned:",
+        embeds = { {
+            title = "A Rift has spawned:",
             description = "A rift has spawned at: " .. meters,
-            color       = 3426654,
+            color = 3426654,
             fields = {
-                { name = "Name",       value = displayName,           inline = true },
+                { name = "Name", value = displayName, inline = true },
                 { name = "Multiplier", value = tostring(multiplier), inline = true },
-                { name = "Timer",      value = timerStr,             inline = true },
-                { name = "Meters",     value = tostring(meters),     inline = true },
+                { name = "Timer", value = timerStr, inline = true },
+                { name = "Meters", value = tostring(meters), inline = true },
             },
             timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
-        }}
+        } }
     }
 
     local res = request({
-        Url     = webhook,
-        Method  = "POST",
+        Url = webhook,
+        Method = "POST",
         Headers = { ["Content-Type"] = "application/json" },
-        Body    = HttpService:JSONEncode(payload)
+        Body = HttpService:JSONEncode(payload)
     })
+
     if res.StatusCode ~= 200 then
         warn("Webhook failed with status code: " .. res.StatusCode)
     end
@@ -51,19 +52,21 @@ local function processRift(v)
         secsLeft = (tonumber(timerText:match("%d+")) or 0) * 60
     end
 
-    local expiry    = os.time() + secsLeft
+    local expiry = os.time() + secsLeft
     local timerValue = ("<t:%d:R>"):format(expiry)
 
-    local luck    = gui:FindFirstChild("Icon") and gui.Icon:FindFirstChild("Luck")
-    local digits  = (luck and luck.Text:match("%d+")) or "0"
+    local luck = gui:FindFirstChild("Icon") and gui.Icon:FindFirstChild("Luck")
+    local digits = (luck and luck.Text:match("%d+")) or "0"
     local multNum = tonumber(digits) or 0
 
-    local rawName     = v.Name
+    local rawName = v.Name
     local displayName = rawName
     if rawName == "event-1" then
         displayName = "bunny-egg"
     elseif rawName == "event-2" then
         displayName = "pastel-egg"
+    elseif rawName == "Throwback Egg" then
+        displayName = "Throwback Egg"
     end
 
     if rawName == "royal-chest" or rawName == "golden-chest" then
@@ -71,19 +74,18 @@ local function processRift(v)
     end
 
     local threshold = (rawName == "event-1" or rawName == "void-egg" or rawName == "Throwback Egg") and 5 or 10
-
-    local pos    = v:GetPivot().Position
+    local pos = v:GetPivot().Position
     local meters = math.floor(pos.Y)
 
     if rawName ~= "gift-rift"
-    and ( rawName == "event-1"
-        or rawName == "event-2"
-        or rawName == "void-egg"
-        or rawName == "rainbow-egg"
-        or rawName == "aura-egg"
-        or rawName == "royal-chest"
-        or rawName == "golden-chest"
-        or rawName == "Throwback Egg" )
+    and (rawName == "event-1"
+      or rawName == "event-2"
+      or rawName == "void-egg"
+      or rawName == "rainbow-egg"
+      or rawName == "aura-egg"
+      or rawName == "royal-chest"
+      or rawName == "golden-chest"
+      or rawName == "Throwback Egg")
     and multNum >= threshold then
 
         sendWebhook(meters, displayName, multNum, timerValue)
