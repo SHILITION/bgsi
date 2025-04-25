@@ -75,7 +75,7 @@ local function processRift(v)
     end
 
  
-    local threshold = (rawName == "event-1" or rawName == "event-3") and 5 or 10
+    local threshold = (rawName == "event-1" or rawName == "event-3" or rawName == "void-egg") and 5 or 10
 
     local pos    = v:GetPivot().Position
     local meters = math.floor(pos.Y)
@@ -85,6 +85,7 @@ local function processRift(v)
         rawName == "event-1"
      or rawName == "event-2"
      or rawName == "event-3" 
+     or rawName == "void-egg"
      or rawName == "aura-egg"
      or rawName == "royal-chest"
      or rawName == "golden-chest"
