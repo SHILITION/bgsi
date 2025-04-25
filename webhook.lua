@@ -71,7 +71,7 @@ local function processRift(v)
         displayName = "throwback-egg"
     end
 
-    if rawName == "royal-chest" or rawName == "golden-chest" then
+    if rawName == "royal-chest" then
         multNum = 9999999999
     end
 
@@ -91,8 +91,7 @@ local function processRift(v)
         or rawName == "event-3"
         or rawName == "nightmare-egg"
         or rawName == "rainbow-egg"
-        or rawName == "aura-egg"
-        or rawName == "royal-chest")
+        or rawName == "aura-egg")
     and multNum >= threshold then
 
         sendWebhook(meters, displayName, multNum, timerValue)
