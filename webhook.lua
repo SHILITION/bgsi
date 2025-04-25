@@ -79,7 +79,7 @@ local function processRift(v)
     if rawName == "nightmare-egg" then
         threshold = 25
     else
-        threshold = 10
+        threshold = 5
     end
     
     local pos = v:GetPivot().Position
