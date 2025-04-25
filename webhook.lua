@@ -70,10 +70,11 @@ local function processRift(v)
         displayName = "throwback-egg"
     end
 
-    if rawName == "royal-chest" then
+    if rawName == "royal-chest" or rawName == "golden-chest" then
         multNum = 9999999999
     end
 
+ 
     local threshold = (rawName == "event-1" or rawName == "event-3") and 5 or 10
 
     local pos    = v:GetPivot().Position
@@ -83,11 +84,21 @@ local function processRift(v)
     and (
         rawName == "event-1"
      or rawName == "event-2"
-     or rawName == "event-3"
+     or rawName == "event-3" 
      or rawName == "aura-egg"
      or rawName == "royal-chest"
+     or rawName == "golden-chest"
     )
     and multNum >= threshold then
 
         sendWebhook(meters, displayName, multNum, timerValue)
     end
+end
+
+for _, v in ipairs(rifts:GetChildren()) do
+    task.spawn(processRift, v)
+end
+
+rifts.ChildAdded:Connect(function(v)
+    task.spawn(processRift, v)
+end)
