@@ -1,9 +1,7 @@
 local webhook = "https://discord.com/api/webhooks/1363752832913772544/B7bSWXh3uVzkiQ2ysIRDTEUsbcULN82nJ3dWFMIBBH-mpmdgelBVsgnDE6HSATpsTjfD"
 local rifts   = workspace.Rendered:WaitForChild("Rifts")
 local HttpService     = game:GetService("HttpService")
-local TeleportService = game:GetService("TeleportService")
 local Players         = game:GetService("Players")
-local localPlayer     = Players.LocalPlayer
 
 local function sendWebhook(meters, displayName, multiplier, timerStr)
     if webhook == "" then return end
@@ -68,13 +66,18 @@ local function processRift(v)
         displayName = "pastel-egg"
     elseif rawName == "event-3" then
         displayName = "throwback-egg"
+    elseif rawName == "nightmare-egg" then
+        displayName = "nightmare-egg"
     end
 
-    if rawName == "royal-chest" or rawName == "golden-chest" then
+    if rawName == "royal-chest" then
         multNum = 9999999999
     end
 
-    local threshold = (rawName == "event-1" or rawName == "event-3" or rawName == "void-egg") and 5 or 10
+    local threshold = (rawName == "event-1" or rawName == "Throwback Egg") and 5 or 10
+    if rawName == "nightmare-egg" then
+        threshold = 25
+    end
 
     local pos    = v:GetPivot().Position
     local meters = math.floor(pos.Y)
@@ -85,7 +88,7 @@ local function processRift(v)
         or rawName == "event-3"
         or rawName == "aura-egg"
         or rawName == "royal-chest"
-        or rawName == "golden-chest" )
+        or rawName == "nightmare-egg" )
     and multNum >= threshold then
 
         sendWebhook(meters, displayName, multNum, timerValue)
