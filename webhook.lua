@@ -76,12 +76,12 @@ local function processRift(v)
     local threshold
     if rawName == "nightmare-egg" then
         threshold = 25
-    elseif rawName == "event-1" then
+    elseif rawName == "event-1" or rawName == "event-3" then
         threshold = 5
     else
         threshold = 10
     end
-
+    
     local pos = v:GetPivot().Position
     local meters = math.floor(pos.Y)
 
