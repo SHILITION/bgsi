@@ -9,7 +9,7 @@ local function sendWebhook(meters, displayName, multiplier, timerStr)
     if webhook == "" then return end
 
     local payload = {
-        content = "@everyone",
+        content = "@everyone", Andrew Gangster
         embeds = {{
             title = "A Rift has spawned:",
             description = "A rift has spawned at: " .. meters,
