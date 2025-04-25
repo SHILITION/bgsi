@@ -83,7 +83,6 @@ local function processRift(v)
     and ( rawName == "event-1"
         or rawName == "event-2"
         or rawName == "event-3"
-        or rawName == "void-egg"
         or rawName == "aura-egg"
         or rawName == "royal-chest"
         or rawName == "golden-chest" )
