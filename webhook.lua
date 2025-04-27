@@ -90,7 +90,8 @@ local function processRift(v)
         or rawName == "event-2"
         or rawName == "event-3"
         or rawName == "nightmare-egg"
-        or rawName == "rainbow-egg"
+        or rawName == "rainbow-egg" 
+        or rawName == "100m-egg"
         or rawName == "aura-egg")
     and multNum >= threshold then
 
