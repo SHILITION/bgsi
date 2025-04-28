@@ -63,15 +63,11 @@ local function processRift(v)
 
     local rawName = v.Name
     local displayName = rawName
-    if rawName == "event-1" then
-        displayName = "bunny-egg"
-    elseif rawName == "event-2" then
-        displayName = "pastel-egg"
-    elseif rawName == "event-3" then
+    if rawName == "event-3" then
         displayName = "throwback-egg"
     end
 
-    if rawName == "royal-chest" then
+    if rawName == "royal-chest" or rawName == "golden-chest" then
         multNum = 9999999999
     end
 
@@ -86,13 +82,11 @@ local function processRift(v)
     local meters = math.floor(pos.Y)
 
     if rawName ~= "gift-rift"
-    and ( rawName == "event-1"
-        or rawName == "event-2"
-        or rawName == "event-3"
+    and ( rawName == "event-3"
         or rawName == "nightmare-egg"
-        or rawName == "rainbow-egg" 
-        or rawName == "100m-egg"
-        or rawName == "aura-egg")
+        or rawName == "rainbow-egg"
+        or rawName == "silly-egg"
+        or rawName == "royal-chest")
     and multNum >= threshold then
 
         sendWebhook(meters, displayName, multNum, timerValue)
